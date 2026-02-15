@@ -169,10 +169,4 @@ The system uses the following main tables:
 
 This project is open source and available under the MIT License.
 
-## Support
-
-For issues and questions, please create an issue in the GitHub repository.
-
----
-
 **Note**: This is the SQL-based version of the order processing system.
