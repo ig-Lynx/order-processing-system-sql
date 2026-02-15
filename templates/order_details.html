@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Hero Banner -->
+<div class="mb-4 rounded-4 overflow-hidden"
+    style="background: linear-gradient(90deg, #6366f1cc 60%, #0ea5e9cc 100%), url('https://images.unsplash.com/photo-1515169067865-5387a5d7b59a?auto=format&fit=crop&w=1200&q=80') center/cover; min-height: 180px;">
+    <div class="p-5 text-white">
+        <h2 class="display-5 fw-bold mb-1"><i class="bi bi-receipt"></i> Order Details (#{{ order.OrderID }})</h2>
+        <p class="lead mb-0">See all items and totals for this order.</p>
+    </div>
+</div>
+
+<div class="card p-4 shadow-lg border-0">
+    <div class="mb-3">
+        <span class="fw-bold"><i class="bi bi-person"></i> Customer:</span> {{ order.CustomerName }}<br>
+        <span class="fw-bold"><i class="bi bi-calendar"></i> Date:</span> {{ order.OrderDate }}<br>
+        <span class="fw-bold"><i class="bi bi-info-circle"></i> Status:</span>
+        {% if order.Status == 'Cancelled' %}
+            <span class="badge bg-danger">{{ order.Status }}</span>
+        {% else %}
+            <span class="badge bg-success">{{ order.Status }}</span>
+        {% endif %}
+    </div>
+    <table class="table table-hover align-middle">
+        <thead>
+            <tr>
+                <th>Product</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+            <tr>
+                <td>
+                    <img src="https://source.unsplash.com/32x32/?product,{{ item.ProductName|urlencode }}" alt="Product" class="rounded me-2" style="width:32px; height:32px; object-fit:cover;">
+                    {{ item.ProductName }}
+                </td>
+                <td>₹{{ "%.2f"|format(item.Price) }}</td>
+                <td>{{ item.Quantity }}</td>
+                <td>₹{{ "%.2f"|format(item.Price * item.Quantity) }}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="3" class="text-end"><strong>Total:</strong></td>
+                <td><strong>₹{{ "%.2f"|format(total) }}</strong></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="text-center my-3">
+        <a href="{{ url_for('list_orders', customer_id=order.CustomerID) }}" class="btn btn-secondary btn-lg px-4"><i class="bi bi-arrow-left"></i> Back to Orders</a>
+    </div>
+</div>
+{% endblock %}
