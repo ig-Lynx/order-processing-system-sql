@@ -175,4 +175,4 @@ For issues and questions, please create an issue in the GitHub repository.
 
 ---
 
-**Note**: This is the SQL-based version of the order processing system. A MongoDB version is also available in a separate repository.
+**Note**: This is the SQL-based version of the order processing system.
